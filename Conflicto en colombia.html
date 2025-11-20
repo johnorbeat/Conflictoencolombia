@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Conflicto Armado en Colombia – Mapa Mental Interactivo con Tooltips</title>
+<style>
+  body {
+    margin:0; height:100vh; overflow:hidden; font-family:"Segoe UI",sans-serif; user-select:none;
+    background: url('Wallpaper.png') center center / cover no-repeat fixed;
+  }
+  #centro {
+    position:fixed; top:50%; left:50%; width:320px; height:320px;
+    background:radial-gradient(circle at 30% 30%, #ff8c00, #dc143c);
+    border-radius:50%; box-shadow:0 0 100px rgba(255,140,0,0.9);
+    display:flex; flex-direction:column; justify-content:center; align-items:center;
+    color:white; font-size:42px; font-weight:900; text-align:center; line-height:1.2;
+    transform:translate(-50%,-50%); z-index:100; border:10px solid #fff;
+    text-shadow:0 5px 15px rgba(0,0,0,0.8);
+  }
+  svg { position:fixed; top:0; left:0; width:100%; height:100%; z-index:1; pointer-events:none; }
+
+  .movible { position:absolute; cursor:move; z-index:10; width:440px; }
+
+  .pastilla {
+    display:block; padding:14px 34px; border-radius:50px; margin-bottom:16px;
+    color:white; font-weight:900; font-size:22px; text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,0.7);
+    background:linear-gradient(135deg, var(--bg1), var(--bg2));
+  }
+
+  /* CAJA MÁS GRANDE */
+  .caja {
+    background:rgba(15,25,45,0.97); color:#e0f2fe;
+    padding:32px 36px; border-radius:26px;
+    box-shadow:0 22px 55px rgba(0,0,0,0.8);
+    border:2px solid rgba(100,150,255,0.25);
+    font-size:18px; line-height:2.1;
+    backdrop-filter:blur(8px);
+  }
+
+  .caja ul { margin:0; padding-left:26px; list-style:none; }
+
+  /* ITEMS MÁS GRANDES */
+  .caja li {
+    margin:16px 0;
+    padding:14px 34px;
+    position:relative; cursor:pointer;
+    background:linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 6px);
+    border-radius:14px; transition:all .2s;
+  }
+  .caja li:hover { background:rgba(255,255,255,0.1); transform:translateX(6px); }
+
+  /* Tooltip */
+  .tooltip {
+    position:absolute; z-index:1000; background:rgba(0,0,0,0.9);
+    color:white; padding:12px 16px; border-radius:12px;
+    font-size:15px; max-width:330px; line-height:1.5;
+    pointer-events:none; box-shadow:0 8px 25px rgba(0,0,0,0.6);
+    border:1px solid rgba(100,200,255,0.4);
+    opacity:0; transform:translateY(10px); transition:all .25s ease;
+    left:50%; top:-60px; transform:translateX(-50%) translateY(10px);
+  }
+  .tooltip::after {
+    content:""; position:absolute; bottom:-8px; left:50%;
+    transform:translateX(-50%);
+    border:8px solid transparent; border-top-color:rgba(0,0,0,0.9);
+  }
+  li:hover .tooltip { opacity:1; transform:translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<div id="centro">Conflicto Armado<br>en Colombia</div>
+<svg id="lineas"></svg>
+
+<!-- RAMA 1 -->
+<div class="movible" data-color="#22d3ee" data-line-id="l1" style="top:80px; left:50%; margin-left:-220px">
+  <div class="pastilla" style="--bg1:#0891b2; --bg2:#22d3ee">Antecedentes Históricos</div>
+  <div class="caja"><ul>
+    <li>1810 Patria Boba 🇨🇴<span class="tooltip">Independencia de España. Gobiernos débiles y guerras civiles entre federalistas y centralistas.</span></li>
+    <li>1840-1842 Guerra de los Supremos ⚔️<span class="tooltip">Rebelión conservadora contra el cierre de conventos. Violencia regional.</span></li>
+    <li>1899-1902 Guerra de los 1000 Días 💥<span class="tooltip">Guerra civil liberal vs conservador. 100.000 muertos.</span></li>
+    <li>1946-1958 La Violencia 🔥<span class="tooltip">Enfrentamiento bipartidista. Más de 200.000 muertos.</span></li>
+    <li>1948 El Bogotazo 😠<span class="tooltip">Magnicidio de Gaitán. Estalla caos en todo el país.</span></li>
+  </ul></div>
+</div>
+
+<!-- RAMA 2 -->
+<div class="movible" data-color="#3b82f6" data-line-id="l2" style="top:240px; left:calc(50% + 520px)">
+  <div class="pastilla" style="--bg1:#1d4ed8; --bg2:#3b82f6">Origen Político y Armado</div>
+  <div class="caja"><ul>
+    <li>1953 Golpe de Rojas Pinilla 🎖️<span class="tooltip">Golpe militar que frena La Violencia pero inicia dictadura.</span></li>
+    <li>1958 Frente Nacional 🤝<span class="tooltip">Liberales y conservadores se reparten el poder por 16 años.</span></li>
+    <li>1961 ANAPO 🟣<span class="tooltip">Movimiento populista contra el establecimiento tradicional.</span></li>
+    <li>1964 FARC 🌿<span class="tooltip">Autodefensas campesinas que evolucionan en guerrilla.</span></li>
+    <li>1965 ELN ⛪<span class="tooltip">Guerrilla inspirada en la revolución cubana.</span></li>
+    <li>1967 EPL 🔴<span class="tooltip">Guerrilla maoísta de línea comunista.</span></li>
+    <li>1967 Movimiento Quintín Lame 🪶<span class="tooltip">Primer movimiento armado indígena.</span></li>
+  </ul></div>
+</div>
+
+<!-- RAMA 3 -->
+<div class="movible" data-color="#f59e0b" data-line-id="l3" style="top:680px; left:calc(50% + 500px)">
+  <div class="pastilla" style="--bg1:#d97706; --bg2:#f59e0b; color:#000">Crisis y Narcotráfico</div>
+  <div class="caja"><ul>
+    <li>1970 Fraude electoral 🗳️<span class="tooltip">Origen del M-19 tras presunto robo electoral.</span></li>
+    <li>1974 Fin del Frente Nacional 🏛️<span class="tooltip">Abre participación, pero sigue la violencia.</span></li>
+    <li>1980 Bonanza narco 💵💣<span class="tooltip">Carteles de Medellín y Cali en crecimiento.</span></li>
+    <li>1981 MAS ☠️<span class="tooltip">Primer grupo paramilitar financiado por narcos.</span></li>
+    <li>1984 Acuerdos de La Uribe ✍️<span class="tooltip">Primer intento de paz con FARC.</span></li>
+    <li>1985 Exterminio de la UP 🕊️💔<span class="tooltip">Más de 4000 asesinados.</span></li>
+    <li>1985 Toma del Palacio 🏛️🔥<span class="tooltip">Tragedia nacional entre M-19 y el Estado.</span></li>
+    <li>1986 Cartel de Cali 📦<span class="tooltip">Crecimiento del cartel más organizado.</span></li>
+  </ul></div>
+</div>
+
+<!-- RAMA 4 -->
+<div class="movible" data-color="#ec4899" data-line-id="l4" style="top:980px; left:50%; margin-left:-220px">
+  <div class="pastilla" style="--bg1:#be185d; --bg2:#ec4899; color:#000">Escalada de Violencia</div>
+  <div class="caja"><ul>
+    <li>1989 Asesinato de Galán 🎤💔<span class="tooltip">Cartel de Medellín frena su candidatura.</span></li>
+    <li>1990 M-19 se desmoviliza 🕊️<span class="tooltip">Se integra a la vida política legal.</span></li>
+    <li>1993 Muerte de Escobar 💀<span class="tooltip">Caída del mayor capo de la historia.</span></li>
+    <li>1994 Norte del Valle 🧪<span class="tooltip">Nuevo cartel toma el control.</span></li>
+    <li>1997 Mapiripán ⚰️<span class="tooltip">Masacre entre paramilitares y Ejército.</span></li>
+    <li>1998-2002 Caguán 🟩<span class="tooltip">Zona despejada para negociar; proceso fracasa.</span></li>
+    <li>2000 Plan Colombia 🇺🇸<span class="tooltip">Ayuda militar multimillonaria.</span></li>
+    <li>2002 Bojayá ⛪💥<span class="tooltip">Tragedia con 79 civiles asesinados.</span></li>
+    <li>2003 AUC se desmoviliza ⚖️<span class="tooltip">30.000 paramilitares entregan armas.</span></li>
+    <li>2007 Justicia y Paz 📜<span class="tooltip">Marco legal para la verdad y reparación.</span></li>
+  </ul></div>
+</div>
+
+<!-- RAMA 5 -->
+<div class="movible" data-color="#10b981" data-line-id="l5" style="top:220px; left:calc(50% - 840px)">
+  <div class="pastilla" style="--bg1:#059669; --bg2:#10b981">Hacia el Fin del Conflicto</div>
+  <div class="caja"><ul>
+    <li>2008-2011 Operaciones militares 🎯<span class="tooltip">Golpes decisivos contra FARC.</span></li>
+    <li>2010 Falsos Positivos ⚠️<span class="tooltip">Escándalo de ejecuciones extrajudiciales.</span></li>
+    <li>2011 Muere Alfonso Cano 🎖️<span class="tooltip">Golpe duro a las FARC.</span></li>
+    <li>2012-2016 La Habana 🇨🇺🤝<span class="tooltip">Negociación formal de paz.</span></li>
+    <li>2016 Acuerdo de Paz 🕊️<span class="tooltip">FARC deja las armas oficialmente.</span></li>
+    <li>2016 JEP ⚖️<span class="tooltip">Justicia transicional para verdad y reparación.</span></li>
+    <li>2017 FARC → Comunes 🟣<span class="tooltip">Nace el nuevo partido político.</span></li>
+    <li>2018 Disidencias 🔫<span class="tooltip">Grupos que no aceptan el acuerdo.</span></li>
+    <li>2022 Paz Total 🌍<span class="tooltip">Estrategia para negociar con todos los grupos armados.</span></li>
+  </ul></div>
+</div>
+
+<script>
+const centroX = window.innerWidth / 2;
+const centroY = window.innerHeight / 2;
+const svg = document.getElementById('lineas');
+const lineas = {};
+['l1','l2','l3','l4','l5'].forEach(id => {
+  const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+  line.setAttribute("stroke-width", "7");
+  line.setAttribute("opacity", "0.6");
+  line.id = id;
+  svg.appendChild(line);
+  lineas[id] = line;
+});
+
+function actualizarLineas() {
+  document.querySelectorAll('.movible').forEach(mov => {
+    const pastilla = mov.querySelector('.pastilla');
+    const rect = pastilla.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+    const line = lineas[mov.dataset.lineId];
+    line.setAttribute('x1', centroX);
+    line.setAttribute('y1', centroY);
+    line.setAttribute('x2', x);
+    line.setAttribute('y2', y);
+    line.setAttribute('stroke', mov.dataset.color);
+  });
+}
+
+document.querySelectorAll('.movible').forEach(el => {
+  let isDown = false, offsetX, offsetY;
+  el.addEventListener('pointerdown', e => {
+    isDown = true;
+    offsetX = e.clientX - el.getBoundingClientRect().left;
+    offsetY = e.clientY - el.getBoundingClientRect().top;
+    el.style.transition = 'none';
+    el.style.zIndex = 1000;
+    e.preventDefault();
+  });
+  document.addEventListener('pointermove', e => {
+    if (!isDown) return;
+    e.preventDefault();
+    el.style.left = (e.clientX - offsetX) + 'px';
+    el.style.top = (e.clientY - offsetY) + 'px';
+    actualizarLineas();
+  });
+  document.addEventListener('pointerup', () => {
+    if (isDown) {
+      isDown = false;
+      el.style.transition = 'all 0.3s ease';
+      el.style.zIndex = 10;
+    }
+  });
+});
+
+actualizarLineas();
+window.addEventListener('resize', () => location.reload());
+</script>
+</body>
+</html>
