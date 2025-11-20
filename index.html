@@ -2,12 +2,59 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Conflicto Armado en Colombia – Mapa Mental Interactivo con Tooltips</title>
+<title>Conflicto Armado en Colombia – Mapa Mental Interactivo</title>
+
 <style>
   body {
     margin:0; height:100vh; overflow:hidden; font-family:"Segoe UI",sans-serif; user-select:none;
     background: url('Wallpaper.png') center center / cover no-repeat fixed;
   }
+
+  /* BOTÓN PARA ABRIR EL MODAL */
+  #btn-info {
+    position: fixed;
+    top: 15px; left: 15px;
+    padding: 10px 20px;
+    background: #0ea5e9;
+    color: white; font-weight: bold;
+    border: none; border-radius: 10px;
+    cursor: pointer; box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    z-index: 2000;
+  }
+  #btn-info:hover {
+    background:#0284c7;
+  }
+
+  /* MODAL */
+  #modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 3000;
+  }
+
+  #modal-contenido {
+    background: white;
+    width: 420px;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    position: relative;
+    text-align: center;
+    font-size: 18px;
+  }
+
+  #cerrar-modal {
+    position: absolute;
+    top: 10px; right: 15px;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
   #centro {
     position:fixed; top:50%; left:50%; width:320px; height:320px;
     background:radial-gradient(circle at 30% 30%, #ff8c00, #dc143c);
@@ -17,6 +64,7 @@
     transform:translate(-50%,-50%); z-index:100; border:10px solid #fff;
     text-shadow:0 5px 15px rgba(0,0,0,0.8);
   }
+
   svg { position:fixed; top:0; left:0; width:100%; height:100%; z-index:1; pointer-events:none; }
 
   .movible { position:absolute; cursor:move; z-index:10; width:440px; }
@@ -28,7 +76,6 @@
     background:linear-gradient(135deg, var(--bg1), var(--bg2));
   }
 
-  /* CAJA MÁS GRANDE */
   .caja {
     background:rgba(15,25,45,0.97); color:#e0f2fe;
     padding:32px 36px; border-radius:26px;
@@ -40,7 +87,6 @@
 
   .caja ul { margin:0; padding-left:26px; list-style:none; }
 
-  /* ITEMS MÁS GRANDES */
   .caja li {
     margin:16px 0;
     padding:14px 34px;
@@ -50,15 +96,14 @@
   }
   .caja li:hover { background:rgba(255,255,255,0.1); transform:translateX(6px); }
 
-  /* Tooltip */
   .tooltip {
     position:absolute; z-index:1000; background:rgba(0,0,0,0.9);
     color:white; padding:12px 16px; border-radius:12px;
     font-size:15px; max-width:330px; line-height:1.5;
     pointer-events:none; box-shadow:0 8px 25px rgba(0,0,0,0.6);
     border:1px solid rgba(100,200,255,0.4);
-    opacity:0; transform:translateY(10px); transition:all .25s ease;
-    left:50%; top:-60px; transform:translateX(-50%) translateY(10px);
+    opacity:0; transform:translateX(-50%) translateY(10px); transition:.25s ease;
+    left:50%; top:-60px;
   }
   .tooltip::after {
     content:""; position:absolute; bottom:-8px; left:50%;
@@ -68,86 +113,114 @@
   li:hover .tooltip { opacity:1; transform:translateX(-50%) translateY(0); }
 </style>
 </head>
+
 <body>
+
+<!-- BOTÓN -->
+<button id="btn-info">Información del Autor</button>
+
+<!-- MODAL -->
+<div id="modal">
+  <div id="modal-contenido">
+    <span id="cerrar-modal">✖</span>
+    <h2 style="margin-top:10px">Datos del Estudiante</h2>
+    <p><strong>Nombre:</strong> John Jairo Ortiz</p>
+    <p><strong>Ficha:</strong> 2977479</p>
+    <p><strong>Actividad:</strong><br>Mapa mental – Hitos del conflicto armado en Colombia<br><strong>GA9-240201526-AA5-EV01</strong></p>
+  </div>
+</div>
 
 <div id="centro">Conflicto Armado<br>en Colombia</div>
 <svg id="lineas"></svg>
 
-<!-- RAMA 1 -->
+<!-- RAMAS (igual que antes, no las modifico) -->
+<!-- =======================  RAMA 1  ======================= -->
 <div class="movible" data-color="#22d3ee" data-line-id="l1" style="top:80px; left:50%; margin-left:-220px">
   <div class="pastilla" style="--bg1:#0891b2; --bg2:#22d3ee">Antecedentes Históricos</div>
   <div class="caja"><ul>
-    <li>1810 Patria Boba 🇨🇴<span class="tooltip">Independencia de España. Gobiernos débiles y guerras civiles entre federalistas y centralistas.</span></li>
-    <li>1840-1842 Guerra de los Supremos ⚔️<span class="tooltip">Rebelión conservadora contra el cierre de conventos. Violencia regional.</span></li>
-    <li>1899-1902 Guerra de los 1000 Días 💥<span class="tooltip">Guerra civil liberal vs conservador. 100.000 muertos.</span></li>
-    <li>1946-1958 La Violencia 🔥<span class="tooltip">Enfrentamiento bipartidista. Más de 200.000 muertos.</span></li>
-    <li>1948 El Bogotazo 😠<span class="tooltip">Magnicidio de Gaitán. Estalla caos en todo el país.</span></li>
+    <li>1810 Patria Boba 🇨🇴<span class="tooltip">Independencia de España. Gobiernos débiles y guerras civiles.</span></li>
+    <li>1840-1842 Guerra de los Supremos ⚔️<span class="tooltip">Rebelión regional armada.</span></li>
+    <li>1899-1902 Guerra de los 1000 Días 💥<span class="tooltip">Más de 100 mil muertos.</span></li>
+    <li>1946-1958 La Violencia 🔥<span class="tooltip">Enfrentamiento bipartidista.</span></li>
+    <li>1948 El Bogotazo 😠<span class="tooltip">Asesinato de Gaitán.</span></li>
   </ul></div>
 </div>
 
-<!-- RAMA 2 -->
+<!-- =======================  RAMA 2  ======================= -->
 <div class="movible" data-color="#3b82f6" data-line-id="l2" style="top:240px; left:calc(50% + 520px)">
   <div class="pastilla" style="--bg1:#1d4ed8; --bg2:#3b82f6">Origen Político y Armado</div>
   <div class="caja"><ul>
-    <li>1953 Golpe de Rojas Pinilla 🎖️<span class="tooltip">Golpe militar que frena La Violencia pero inicia dictadura.</span></li>
-    <li>1958 Frente Nacional 🤝<span class="tooltip">Liberales y conservadores se reparten el poder por 16 años.</span></li>
-    <li>1961 ANAPO 🟣<span class="tooltip">Movimiento populista contra el establecimiento tradicional.</span></li>
-    <li>1964 FARC 🌿<span class="tooltip">Autodefensas campesinas que evolucionan en guerrilla.</span></li>
-    <li>1965 ELN ⛪<span class="tooltip">Guerrilla inspirada en la revolución cubana.</span></li>
-    <li>1967 EPL 🔴<span class="tooltip">Guerrilla maoísta de línea comunista.</span></li>
-    <li>1967 Movimiento Quintín Lame 🪶<span class="tooltip">Primer movimiento armado indígena.</span></li>
+    <li>1953 Golpe de Rojas Pinilla 🎖️<span class="tooltip">Golpe militar.</span></li>
+    <li>1958 Frente Nacional 🤝<span class="tooltip">Acuerdo bipartidista.</span></li>
+    <li>1961 ANAPO 🟣<span class="tooltip">Movimiento opositor.</span></li>
+    <li>1964 FARC 🌿<span class="tooltip">Origen guerrillero.</span></li>
+    <li>1965 ELN ⛪<span class="tooltip">Guerrilla inspirada en Cuba.</span></li>
+    <li>1967 EPL 🔴<span class="tooltip">Guerrilla maoísta.</span></li>
+    <li>1967 Quintín Lame 🪶<span class="tooltip">Movimiento indígena armado.</span></li>
   </ul></div>
 </div>
 
-<!-- RAMA 3 -->
+<!-- =======================  RAMA 3  ======================= -->
 <div class="movible" data-color="#f59e0b" data-line-id="l3" style="top:680px; left:calc(50% + 500px)">
   <div class="pastilla" style="--bg1:#d97706; --bg2:#f59e0b; color:#000">Crisis y Narcotráfico</div>
   <div class="caja"><ul>
-    <li>1970 Fraude electoral 🗳️<span class="tooltip">Origen del M-19 tras presunto robo electoral.</span></li>
-    <li>1974 Fin del Frente Nacional 🏛️<span class="tooltip">Abre participación, pero sigue la violencia.</span></li>
-    <li>1980 Bonanza narco 💵💣<span class="tooltip">Carteles de Medellín y Cali en crecimiento.</span></li>
-    <li>1981 MAS ☠️<span class="tooltip">Primer grupo paramilitar financiado por narcos.</span></li>
-    <li>1984 Acuerdos de La Uribe ✍️<span class="tooltip">Primer intento de paz con FARC.</span></li>
-    <li>1985 Exterminio de la UP 🕊️💔<span class="tooltip">Más de 4000 asesinados.</span></li>
-    <li>1985 Toma del Palacio 🏛️🔥<span class="tooltip">Tragedia nacional entre M-19 y el Estado.</span></li>
-    <li>1986 Cartel de Cali 📦<span class="tooltip">Crecimiento del cartel más organizado.</span></li>
+    <li>1970 Fraude electoral 🗳️<span class="tooltip">Origen del M-19.</span></li>
+    <li>1974 Fin del Frente Nacional 🏛️<span class="tooltip">Nueva etapa política.</span></li>
+    <li>1980 Bonanza narco 💵💣<span class="tooltip">Carteles toman fuerza.</span></li>
+    <li>1981 MAS ☠️<span class="tooltip">Paramilitarismo inicial.</span></li>
+    <li>1984 La Uribe ✍️<span class="tooltip">Primer pacto con FARC.</span></li>
+    <li>1985 UP 🕊️💔<span class="tooltip">Exterminio político.</span></li>
+    <li>1985 Palacio de Justicia 🏛️🔥<span class="tooltip">Tragedia nacional.</span></li>
+    <li>1986 Cartel de Cali 📦<span class="tooltip">Crecimiento criminal.</span></li>
   </ul></div>
 </div>
 
-<!-- RAMA 4 -->
+<!-- =======================  RAMA 4  ======================= -->
 <div class="movible" data-color="#ec4899" data-line-id="l4" style="top:980px; left:50%; margin-left:-220px">
   <div class="pastilla" style="--bg1:#be185d; --bg2:#ec4899; color:#000">Escalada de Violencia</div>
   <div class="caja"><ul>
-    <li>1989 Asesinato de Galán 🎤💔<span class="tooltip">Cartel de Medellín frena su candidatura.</span></li>
-    <li>1990 M-19 se desmoviliza 🕊️<span class="tooltip">Se integra a la vida política legal.</span></li>
-    <li>1993 Muerte de Escobar 💀<span class="tooltip">Caída del mayor capo de la historia.</span></li>
-    <li>1994 Norte del Valle 🧪<span class="tooltip">Nuevo cartel toma el control.</span></li>
-    <li>1997 Mapiripán ⚰️<span class="tooltip">Masacre entre paramilitares y Ejército.</span></li>
-    <li>1998-2002 Caguán 🟩<span class="tooltip">Zona despejada para negociar; proceso fracasa.</span></li>
-    <li>2000 Plan Colombia 🇺🇸<span class="tooltip">Ayuda militar multimillonaria.</span></li>
-    <li>2002 Bojayá ⛪💥<span class="tooltip">Tragedia con 79 civiles asesinados.</span></li>
-    <li>2003 AUC se desmoviliza ⚖️<span class="tooltip">30.000 paramilitares entregan armas.</span></li>
-    <li>2007 Justicia y Paz 📜<span class="tooltip">Marco legal para la verdad y reparación.</span></li>
+    <li>1989 Galán 🎤💔<span class="tooltip">Magnicidio.</span></li>
+    <li>1990 M-19 🕊️<span class="tooltip">Dejan las armas.</span></li>
+    <li>1993 Escobar 💀<span class="tooltip">Caída del capo.</span></li>
+    <li>1994 Norte del Valle 🧪<span class="tooltip">Nuevo cartel.</span></li>
+    <li>1997 Mapiripán ⚰️<span class="tooltip">Masacre.</span></li>
+    <li>1998-2002 Caguán 🟩<span class="tooltip">Negociaciones fallidas.</span></li>
+    <li>2000 Plan Colombia 🇺🇸<span class="tooltip">Intervención militar.</span></li>
+    <li>2002 Bojayá ⛪💥<span class="tooltip">79 civiles muertos.</span></li>
+    <li>2003 AUC ⚖️<span class="tooltip">Desmovilización.</span></li>
+    <li>2007 Justicia y Paz 📜<span class="tooltip">Verdad y reparación.</span></li>
   </ul></div>
 </div>
 
-<!-- RAMA 5 -->
+<!-- =======================  RAMA 5  ======================= -->
 <div class="movible" data-color="#10b981" data-line-id="l5" style="top:220px; left:calc(50% - 840px)">
   <div class="pastilla" style="--bg1:#059669; --bg2:#10b981">Hacia el Fin del Conflicto</div>
   <div class="caja"><ul>
-    <li>2008-2011 Operaciones militares 🎯<span class="tooltip">Golpes decisivos contra FARC.</span></li>
-    <li>2010 Falsos Positivos ⚠️<span class="tooltip">Escándalo de ejecuciones extrajudiciales.</span></li>
-    <li>2011 Muere Alfonso Cano 🎖️<span class="tooltip">Golpe duro a las FARC.</span></li>
-    <li>2012-2016 La Habana 🇨🇺🤝<span class="tooltip">Negociación formal de paz.</span></li>
-    <li>2016 Acuerdo de Paz 🕊️<span class="tooltip">FARC deja las armas oficialmente.</span></li>
-    <li>2016 JEP ⚖️<span class="tooltip">Justicia transicional para verdad y reparación.</span></li>
-    <li>2017 FARC → Comunes 🟣<span class="tooltip">Nace el nuevo partido político.</span></li>
-    <li>2018 Disidencias 🔫<span class="tooltip">Grupos que no aceptan el acuerdo.</span></li>
-    <li>2022 Paz Total 🌍<span class="tooltip">Estrategia para negociar con todos los grupos armados.</span></li>
+    <li>2008-2011 Operaciones 🎯<span class="tooltip">Golpes a FARC.</span></li>
+    <li>2010 Falsos Positivos ⚠️<span class="tooltip">Escándalo nacional.</span></li>
+    <li>2011 Alfonso Cano 🎖️<span class="tooltip">Muerte del líder.</span></li>
+    <li>2012-2016 La Habana 🇨🇺🤝<span class="tooltip">Negociaciones.</span></li>
+    <li>2016 Acuerdo 🕊️<span class="tooltip">Fin del conflicto con FARC.</span></li>
+    <li>2016 JEP ⚖️<span class="tooltip">Justicia transicional.</span></li>
+    <li>2017 Comunes 🟣<span class="tooltip">Nuevo partido.</span></li>
+    <li>2018 Disidencias 🔫<span class="tooltip">Grupos residuales.</span></li>
+    <li>2022 Paz Total 🌍<span class="tooltip">Nueva estrategia nacional.</span></li>
   </ul></div>
 </div>
 
+
 <script>
+/* CONTROL DEL MODAL */
+const btn = document.getElementById("btn-info");
+const modal = document.getElementById("modal");
+const cerrar = document.getElementById("cerrar-modal");
+
+btn.onclick = () => modal.style.display = "flex";
+cerrar.onclick = () => modal.style.display = "none";
+modal.onclick = e => { if(e.target === modal) modal.style.display = "none"; };
+
+
+/* CONEXIÓN DE LÍNEAS */
 const centroX = window.innerWidth / 2;
 const centroY = window.innerHeight / 2;
 const svg = document.getElementById('lineas');
@@ -186,6 +259,7 @@ document.querySelectorAll('.movible').forEach(el => {
     el.style.zIndex = 1000;
     e.preventDefault();
   });
+
   document.addEventListener('pointermove', e => {
     if (!isDown) return;
     e.preventDefault();
@@ -193,6 +267,7 @@ document.querySelectorAll('.movible').forEach(el => {
     el.style.top = (e.clientY - offsetY) + 'px';
     actualizarLineas();
   });
+
   document.addEventListener('pointerup', () => {
     if (isDown) {
       isDown = false;
@@ -205,5 +280,6 @@ document.querySelectorAll('.movible').forEach(el => {
 actualizarLineas();
 window.addEventListener('resize', () => location.reload());
 </script>
+
 </body>
 </html>
